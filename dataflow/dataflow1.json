@@ -1,0 +1,92 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Excel1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {Row ID} as string,",
+				"          {Order Priority} as string,",
+				"          Discount as string,",
+				"          {Unit Price} as string,",
+				"          {Shipping Cost} as string,",
+				"          {Customer ID} as string,",
+				"          {Customer Name} as string,",
+				"          {Ship Mode} as string,",
+				"          {Customer Segment} as string,",
+				"          {Product Category} as string,",
+				"          {Product Sub-Category} as string,",
+				"          {Product Container} as string,",
+				"          {Product Name} as string,",
+				"          {Product Base Margin} as string,",
+				"          Region as string,",
+				"          {State or Province} as string,",
+				"          City as string,",
+				"          {Postal Code} as string,",
+				"          {Order Date} as string,",
+				"          {Ship Date} as string,",
+				"          Profit as string,",
+				"          {Quantity ordered new} as string,",
+				"          Sales as string,",
+				"          {Order ID} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 select(mapColumn(",
+				"          {Row ID},",
+				"          {Order Priority},",
+				"          Discount,",
+				"          {Unit Price},",
+				"          {Shipping Cost},",
+				"          {Customer ID},",
+				"          {Customer Name},",
+				"          {Ship Mode},",
+				"          {Customer Segment},",
+				"          {Product Category},",
+				"          {Product Sub-Category},",
+				"          {Product Container},",
+				"          {Product Name},",
+				"          {Product Base Margin},",
+				"          Region,",
+				"          {State or Province},",
+				"          City,",
+				"          {Postal Code},",
+				"          {Order Date},",
+				"          {Ship Date},",
+				"          Profit,",
+				"          {Quantity ordered new}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
